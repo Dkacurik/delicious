@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link href="{{asset('vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
     <link href="{{asset('vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/css/evo-calendar.min.css"/>
+
 
     <!-- Styles -->
 </head>
@@ -457,27 +459,30 @@
             </div>
 
             <form action="" method="post" class="php-email-form">
+
                 <input type="hidden" name="makeReservation" value="1">
+                <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Vaše meno"
                                data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                         <div class="validate"></div>
                     </div>
                     <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Váš email"
                                data-rule="email" data-msg="Please enter a valid email">
                         <div class="validate"></div>
                     </div>
                     <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone"
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Váš telefón"
                                data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                         <div class="validate"></div>
                     </div>
+                    <div id="calendar"></div>
 
                 </div>
                 <div class="form-group mt-3">
-                    <textarea class="form-control" name="note" rows="5" placeholder="Message"></textarea>
+                    <textarea class="form-control" name="note" rows="5" placeholder="Správa"></textarea>
                     <div class="validate"></div>
                 </div>
                 <div class="mb-3">
@@ -651,7 +656,11 @@
 <script src={{asset('vendor/isotope-layout/isotope.pkgd.min.js')}}></script>
 <script src={{asset('vendor/swiper/swiper-bundle.min.js')}}></script>
 <script src={{asset('vendor/php-email-form/validate.js')}}></script>
+<!-- Add jQuery library (required) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 
+<!-- Add the evo-calendar.js for.. obviously, functionality! -->
+<script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
 <script src={{asset('js/app.js')}}></script>
 </body>
 </html>

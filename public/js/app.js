@@ -1,10 +1,10 @@
-    /**
+/**
  * Template Name: Delicious - v4.7.0
  * Template URL: https://bootstrapmade.com/delicious-free-restaurant-bootstrap-theme/
  * Author: BootstrapMade.com
  * License: https://bootstrapmade.com/license/
  */
-(function() {
+(function () {
     "use strict";
 
     /**
@@ -116,7 +116,7 @@
     /**
      * Mobile nav toggle
      */
-    on('click', '.mobile-nav-toggle', function(e) {
+    on('click', '.mobile-nav-toggle', function (e) {
         select('#navbar').classList.toggle('navbar-mobile')
         this.classList.toggle('bi-list')
         this.classList.toggle('bi-x')
@@ -125,7 +125,7 @@
     /**
      * Mobile nav dropdowns activate
      */
-    on('click', '.navbar .dropdown > a', function(e) {
+    on('click', '.navbar .dropdown > a', function (e) {
         if (select('#navbar').classList.contains('navbar-mobile')) {
             e.preventDefault()
             this.nextElementSibling.classList.toggle('dropdown-active')
@@ -135,7 +135,7 @@
     /**
      * Scrool with ofset on links with a class name .scrollto
      */
-    on('click', '.scrollto', function(e) {
+    on('click', '.scrollto', function (e) {
         if (select(this.hash)) {
             e.preventDefault()
 
@@ -169,7 +169,7 @@
 
     heroCarouselItems.forEach((item, index) => {
         (index === 0) ?
-            heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "' class='active'></li>":
+            heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "' class='active'></li>" :
             heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "'></li>"
     });
 
@@ -186,9 +186,9 @@
 
             let menuFilters = select('#menu-flters li', true);
 
-            on('click', '#menu-flters li', function(e) {
+            on('click', '#menu-flters li', function (e) {
                 e.preventDefault();
-                menuFilters.forEach(function(el) {
+                menuFilters.forEach(function (el) {
                     el.classList.remove('filter-active');
                 });
                 this.classList.add('filter-active');
@@ -244,6 +244,71 @@
             clickable: true
         }
     });
+
+    let id = 0;
+
+    fetch('/free-dates').then(r => r.json()).then().then(data => {
+        const events = []
+
+        let reservations = data['reservations']
+        reservations.forEach(reservation => {
+            console.log(reservation)
+            const event = {
+                id: `${reservation.id}/${reservation.created_at}`,
+                name: `${reservation.time} - Termin`,
+                date: reservation.date,
+                type: "event",
+            }
+
+            events.push(event)
+        })
+
+        console.log(events)
+
+        $("#calendar").evoCalendar({
+            calendarEvents:
+              events
+
+        });
+
+        $("#calendar").on('selectEvent', function(event, activeEvent) {
+            const ev = activeEvent
+            alert(`${activeEvent.name} bol vybrany`)
+            id = ev.id.split('/')[0]
+            console.log(`click on event ${JSON.stringify(activeEvent)}`)
+        })
+    })
+
+    $('.php-email-form').on('submit', (e) => {
+        e.preventDefault()
+        console.log('submit')
+        let formData = new FormData()
+        formData.append('name', $('#name').val())
+        formData.append('email', $('#email').val())
+        formData.append('phone', $('#phone').val())
+        formData.append('note', $('#note').val())
+        console.log(id)
+        for (const value of formData.values()) {
+            console.log(value);
+        }
+
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+
+        fetch(`/reserve/${id}`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": token,
+            }
+        }).then((res) => {
+            if (res.ok) {
+                alert('Datum bol rezervovany')
+                location.reload();
+            } else {
+                alert('Datum s tymto casom uz bol pouzity')
+            }
+        })
+    })
 
 })()
 

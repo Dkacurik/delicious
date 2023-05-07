@@ -140,4 +140,6 @@
     </div>
 </x-app-layout>
 
+<script src="../js/main.js"></script>
+
 

@@ -65,6 +65,20 @@ class ReservationController extends Controller
         //
     }
 
+    public function reserve(Request $request, string $id)
+    {
+        $res = Reservation::find($id);
+        if($res){
+            $res->name = $request->input('name');
+            $res->email = $request->input('email');
+            $res->note = $request->input('note');
+
+            $res->save();
+
+            return response('Updated', 200);
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -108,5 +122,13 @@ class ReservationController extends Controller
     {
         $res = Reservation::find($id);
         return $res->delete();
+    }
+
+    public function get_free_dates()
+    {
+        $res = Reservation::where('email', null)->get();
+
+        return response()->json(['reservations'=>$res]);
+
     }
 }

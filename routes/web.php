@@ -30,6 +30,8 @@ Route::resource('/reservations', ReservationController::class, ['names' =>[
     ->middleware(['auth']);
 
 Route::post('/reservations/{id}', [ReservationController::class, 'update'] )->middleware(['auth']);
+Route::post('/reserve/{id}', [ReservationController::class, 'reserve'] )->name('reservation.reserve');
+Route::get('/free-dates', [ReservationController::class, 'get_free_dates'])->name('reservation.get_all_free_dates');
 //Route::get('/reservations', function () {
 //    return view('reservation');
 //})->middleware(['auth', 'verified'])->name('reservation');
