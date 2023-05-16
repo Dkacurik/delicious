@@ -247,6 +247,30 @@
 
     let id = 0;
 
+    fetch('/workers').then(r => r.json()).then().then(data => {
+        let workers = data['users']
+        const select = document.getElementById('worker')
+
+        workers.forEach(worker => {
+            let option = `<option value="${worker.id}"> ${worker.name}</option>`
+            select.innerHTML += option
+            console.log(worker)
+
+        })
+    })
+
+    fetch('/services').then(r => r.json()).then().then(data => {
+        let services = data['services']
+        const select = document.getElementById('service')
+
+        services.forEach(service => {
+            let option = `<option value="${service.id}"> ${service.title} - ${service.price} &euro;</option>`
+            select.innerHTML += option
+            console.log(option)
+        })
+    })
+
+
     fetch('/free-dates').then(r => r.json()).then().then(data => {
         const events = []
 
@@ -287,6 +311,8 @@
         formData.append('email', $('#email').val())
         formData.append('phone', $('#phone').val())
         formData.append('note', $('#note').val())
+        formData.append('user_id', $('#worker').val())
+        formData.append('service_id', $('#service').val())
         console.log(id)
         for (const value of formData.values()) {
             console.log(value);

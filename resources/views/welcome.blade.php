@@ -125,7 +125,7 @@
 
                     <div class="content">
                         <h3>Radi by sme Vám predstavili salón kde sa budete cítiť ako doma. Salón krásy Lady znamená
-                            príjemné a priateľské prostredie, kde môžete zabudnúť na bežné starosti.</strong></h3>
+                            príjemné a priateľské prostredie, kde môžete zabudnúť na bežné starosti.</h3>
                         <p>
                             Ponúkame Vám širokú škálu kozmetických služieb od poradenstva, klasického čistenia cez
                             moderné laserové ošetrenie, obľúbeného 1D mihalničky, lamináciu obočia, nastreľovanie
@@ -478,11 +478,23 @@
                                data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                         <div class="validate"></div>
                     </div>
+                    <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                        <select class="form-control" name="worker" id="worker">
+
+                        </select>
+                        <div class="validate"></div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                        <select class="form-control" name="service" id="service">
+
+                        </select>
+                        <div class="validate"></div>
+                    </div>
                     <div id="calendar"></div>
 
                 </div>
                 <div class="form-group mt-3">
-                    <textarea class="form-control" name="note" rows="5" placeholder="Správa"></textarea>
+                    <textarea class="form-control" id="note" name="note" rows="5" placeholder="Správa"></textarea>
                     <div class="validate"></div>
                 </div>
                 <div class="mb-3">
@@ -583,7 +595,7 @@
         <div class="container">
 
             <div class="section-title">
-                <h2><span>Kontaktujte nás</h2>
+                <h2><span>Kontaktujte nás</span></h2>
             </div>
         </div>
 

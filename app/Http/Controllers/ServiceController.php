@@ -17,6 +17,14 @@ class ServiceController extends Controller
         return view('service', ['services' => $services]);
     }
 
+
+    public function showAll()
+    {
+        $services = Service::all();
+
+        return response()->json(['services'=>$services]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -19,9 +19,11 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('note')->nullable();
             $table->foreignId('user_id')
+                ->nullable()
                 ->constrained('users')
                 ->onDelete('cascade');
             $table->foreignId('service_id')
+                ->nullable()
                 ->constrained('services')
                 ->onDelete('cascade');
             $table->timestamps();

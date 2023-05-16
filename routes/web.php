@@ -40,6 +40,9 @@ Route::resource('/service', ServiceController::class, ['names' =>[
 
 Route::post('/service/{id}', [ServiceController::class, 'update'] )->middleware(['auth']);
 
+Route::get('/workers', [ProfileController::class, 'showAllUsers'])->name('workers');
+Route::get('/services', [ServiceController::class, 'showAll'])->name('all-services');
+
 
 Route::post('/reservations/{id}', [ReservationController::class, 'update'] )->middleware(['auth']);
 Route::post('/reserve/{id}', [ReservationController::class, 'reserve'] )->name('reservation.reserve');

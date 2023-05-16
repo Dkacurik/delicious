@@ -12,9 +12,9 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::orderBy('id', 'DESC')->get();
+        $reservations = Reservation::with(['worker', 'service'])->get();
 
-        return view('reservation', ['reservations' => $reservations]);
+        return view('reservation', ['reservations' => $reservations], );
     }
 
     /**
@@ -72,7 +72,8 @@ class ReservationController extends Controller
             $res->name = $request->input('name');
             $res->email = $request->input('email');
             $res->note = $request->input('note');
-
+            $res->user_id = $request->input('user_id');
+            $res->service_id = $request->input('service_id');
             $res->save();
 
             return response('Updated', 200);
