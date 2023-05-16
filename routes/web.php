@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +24,22 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
 Route::resource('/reservations', ReservationController::class, ['names' =>[
     'index' => 'reservations',
     'store' => 'reservations.store'
 ]])
     ->middleware(['auth']);
+
+Route::resource('/service', ServiceController::class, ['names' =>[
+    'index' => 'service',
+    'store' => 'service.store'
+]])
+    ->middleware(['auth']);
+
+Route::post('/service/{id}', [ServiceController::class, 'update'] )->middleware(['auth']);
+
 
 Route::post('/reservations/{id}', [ReservationController::class, 'update'] )->middleware(['auth']);
 Route::post('/reserve/{id}', [ReservationController::class, 'reserve'] )->name('reservation.reserve');

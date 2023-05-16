@@ -127,8 +127,6 @@ class ReservationController extends Controller
     public function get_free_dates()
     {
         $res = Reservation::where('email', null)->get();
-
         return response()->json(['reservations'=>$res]);
-
     }
 }
