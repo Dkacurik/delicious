@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Reservation;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -75,6 +77,21 @@ class ReservationController extends Controller
             $res->user_id = $request->input('user_id');
             $res->service_id = $request->input('service_id');
             $res->save();
+
+            $client = Client::where('email', $request->input('email'))->first();
+
+            $service = Service::find($request->input('service_id'));
+            if(!$client){
+                $c = Client::create([
+                    'email' => $request->input('email'),
+                    'attendance' => 1,
+                    'price' => $service->price
+                ]);
+            }else{
+                $client->attendance = $client->attendance + 1;
+                $client->price = $client->price + $service->price;
+                $client->save();
+            }
 
             return response('Updated', 200);
         }

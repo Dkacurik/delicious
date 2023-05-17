@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ServiceController;
@@ -20,11 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-
 
 Route::resource('/reservations', ReservationController::class, ['names' =>[
     'index' => 'reservations',
@@ -39,6 +35,9 @@ Route::resource('/service', ServiceController::class, ['names' =>[
     ->middleware(['auth']);
 
 Route::post('/service/{id}', [ServiceController::class, 'update'] )->middleware(['auth']);
+
+Route::get('/dashboard', [ClientController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard/{id}', [ClientController::class, 'show'])->middleware(['auth']);
 
 Route::get('/workers', [ProfileController::class, 'showAllUsers'])->name('workers');
 Route::get('/services', [ServiceController::class, 'showAll'])->name('all-services');

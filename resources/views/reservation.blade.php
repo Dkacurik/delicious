@@ -119,8 +119,16 @@
                                             <td class="whitespace-nowrap px-6 py-4">{{$reservation->email}}</td>
                                             <td class="whitespace-nowrap px-6 py-4">{{$reservation->note}}</td>
                                             <td class="whitespace-nowrap px-6 py-4">@if(strlen($reservation->email) > 0 || strlen($reservation->name) > 0 ) Obsadene @else Volne @endif</td>
+                                            @if($reservation->worker)
                                             <td class="whitespace-nowrap px-6 py-4">{{$reservation->worker->name}}</td>
-                                            <td class="whitespace-nowrap px-6 py-4">{{$reservation->service->title}} - {{$reservation->service->price}} &euro;</td>
+                                            @else
+                                                <td class="whitespace-nowrap px-6 py-4"></td>
+                                            @endif
+                                            @if($reservation->service)
+                                                <td class="whitespace-nowrap px-6 py-4">{{$reservation->service->title}} - {{$reservation->service->price}} &euro;</td>
+                                            @else
+                                                <td class="whitespace-nowrap px-6 py-4"></td>
+                                            @endif
                                             <td class="whitespace-nowrap px-6 py-4">
                                                 <button data-reservationId="{{$reservation->id}}" data-modal-toggle="staticModal" class="edit-reservation block text-white bg-yellow-400 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="button">
                                                     Edit
